@@ -5,8 +5,6 @@
 ## 依存関係
 
 - domain
-  - entity
-  - model
   - repository
 - infrastructure
 - usecase
