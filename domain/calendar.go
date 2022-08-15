@@ -1,4 +1,4 @@
-package entity
+package domain
 
 type Calendar struct {
 	Day   string

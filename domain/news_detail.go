@@ -1,4 +1,4 @@
-package entity
+package domain
 
 type NewsDetail struct {
 	Title      string

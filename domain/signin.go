@@ -1,4 +1,4 @@
-package entity
+package domain
 
 type Signin struct {
 	Status  bool
