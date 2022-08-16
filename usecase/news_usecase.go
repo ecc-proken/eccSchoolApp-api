@@ -6,7 +6,7 @@ import (
 )
 
 type NewsUsecase interface {
-	Get() (*domain.News, error)
+	Get() ([]*domain.News, error)
 }
 
 type newsUsecase struct {
@@ -17,7 +17,7 @@ func NewNewsUsecase(newsRepository repository.NewsRepository) NewsUsecase {
 	return &newsUsecase{newsRepository: newsRepository}
 }
 
-func (u *newsUsecase) Get() (*domain.News, error) {
+func (u *newsUsecase) Get() ([]*domain.News, error) {
 	getNews, err := u.newsRepository.Get()
 	if err != nil {
 		return nil, err

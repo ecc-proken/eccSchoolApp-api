@@ -11,8 +11,8 @@ func NewNewsRepository() repository.NewsRepository {
 	return &NewsRepository{}
 }
 
-func (r *NewsRepository) Get() (*domain.News, error) {
-	news := &domain.News{}
+func (r *NewsRepository) Get() ([]*domain.News, error) {
+	news := []*domain.News{}
 
 	return news, nil
 }
