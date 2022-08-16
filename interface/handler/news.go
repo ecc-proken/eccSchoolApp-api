@@ -28,9 +28,9 @@ type responseNews struct {
 	Link  string `json:"link"`
 }
 
-func (th *newsHandler) Get() echo.HandlerFunc {
+func (h *newsHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		getNews, err := th.newsUsecase.Get()
+		getNews, err := h.newsUsecase.Get()
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}

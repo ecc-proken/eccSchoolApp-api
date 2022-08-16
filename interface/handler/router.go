@@ -5,7 +5,7 @@ import (
 )
 
 // InitRouting routesの初期化
-func InitRouting(e *echo.Echo, newsHandler newsHandler) {
+func InitRouting(e *echo.Echo, newsHandler NewsHandler) {
 
 	// news
 	e.GET("/news", newsHandler.Get())
