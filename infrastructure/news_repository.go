@@ -12,7 +12,28 @@ func NewNewsRepository() repository.NewsRepository {
 }
 
 func (r *NewsRepository) Get() ([]*domain.News, error) {
-	news := []*domain.News{}
+	// return []*domain.News{
+	// 	&domain.News{
+	// 		ID:    1,
+	// 		Title: "title1",
+	// 		Date:  "date1",
+	// 		Link:  "link1",
+	// 	},
+	// 	&domain.News{
+	// 		ID:    2,
+	// 		Title: "title2",
+	// 		Date:  "date2",
+	// 		Link:  "link2",
+	// 	},
+	// }, nil
+	news := []*domain.News{
+		&domain.News{
+			ID:    1,
+			Title: "title1",
+			Date:  "date1",
+			Link:  "link1",
+		},
+	}
 
 	return news, nil
 }
