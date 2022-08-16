@@ -1,5 +1,5 @@
 tmp
-env
+.env
 
 # 開発後消せよ？
 echo-demo
