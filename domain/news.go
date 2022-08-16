@@ -1,8 +1,9 @@
 package domain
 
 type News struct {
-	ID    int
+	ID    string
 	Title string
 	Date  string
+	Tag   string
 	Link  string
 }

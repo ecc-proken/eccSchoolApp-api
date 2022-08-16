@@ -22,9 +22,10 @@ func NewNewsHandler(newsUsecase usecase.NewsUsecase) NewsHandler {
 type requestNews struct{}
 
 type responseNews struct {
-	ID    int    `json:"id"`
+	ID    string `json:"id"`
 	Title string `json:"title"`
 	Date  string `json:"date"`
+	Tag   string `json:"tag"`
 	Link  string `json:"link"`
 }
 
@@ -41,6 +42,7 @@ func (h *newsHandler) Get() echo.HandlerFunc {
 				ID:    news.ID,
 				Title: news.Title,
 				Date:  news.Date,
+				Tag:   news.Tag,
 				Link:  news.Link,
 			})
 		}
