@@ -1,7 +1,7 @@
 dc := docker-compose -f ./docker-compose.yml
 
 up:
-	$(dc) up -d --build
+	$(dc) up -d
 
 down:
 	$(dc) down
