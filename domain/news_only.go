@@ -1,6 +1,6 @@
 package domain
 
-type NewsDetail struct {
+type NewsOnly struct {
 	Title      string
 	Data       string
 	Date       string
