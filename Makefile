@@ -1,10 +1,5 @@
 dc := docker-compose -f ./docker-compose.yml
 
-init:
-	@make up
-	docker stop app
-	@make up
-
 up:
 	$(dc) up -d --build
 
