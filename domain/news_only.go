@@ -2,8 +2,8 @@ package domain
 
 type NewsOnly struct {
 	Title      string
-	Data       string
+	Body       string
 	Date       string
 	Tag        string
-	attachment []string
+	Attachment []string
 }
