@@ -44,7 +44,7 @@ func (h *newsHandler) Get() echo.HandlerFunc {
 		res := []responseNews{}
 		for _, news := range getNews {
 			res = append(res, responseNews{
-				ID:    news.ID,
+				ID:    news.Id,
 				Title: news.Title,
 				Date:  news.Date,
 				Tag:   news.Tag,

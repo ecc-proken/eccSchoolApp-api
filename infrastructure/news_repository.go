@@ -59,7 +59,7 @@ func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
 	news := []*domain.News{}
 	for i := 0; i < len(id); i++ {
 		news = append(news, &domain.News{
-			ID:    id[i],
+			Id:    id[i],
 			Title: title[i],
 			Date:  date[i],
 			Tag:   tag[i],
