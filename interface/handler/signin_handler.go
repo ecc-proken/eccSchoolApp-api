@@ -24,7 +24,7 @@ func NewSigninHandler(signinUsecase usecase.SigninUsecase) SigninHandler {
 type requestSignin struct{}
 
 type responseSignin struct {
-	Status  bool   `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
 
