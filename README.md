@@ -10,9 +10,9 @@ https://echo.labstack.com/
 
 - https://pkg.go.dev/github.com/gocolly/colly
   - スクレイピング
-- github.com/joho/godotenv
+- https://pkg.go.dev/github.com/joho/godotenv
   - .env 読み込み
-- github.com/golang-jwt/jwt
+- https://pkg.go.dev/github.com/golang-jwt/jwt
   - 認証
 
 ## 依存関係
