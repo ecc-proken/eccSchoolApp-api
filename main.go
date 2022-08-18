@@ -25,17 +25,16 @@ func main() {
 	signinHandler := handler.NewSigninHandler(signinUsecase)
 	newsHandler := handler.NewNewsHandler(newsUsecase)
 
+	// Echo instance
 	e := echo.New()
 
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.POST("/login", func(c echo.Context) error {
-		return config.Login(c, signinUsecase)
-	})
+	// Routes
+	handler.InitRouting(e, signinUsecase, newsHandler, signinHandler)
 
-	handler.InitRouting(e, newsHandler, signinHandler)
-
+	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
 }
