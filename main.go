@@ -31,6 +31,10 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.POST("/login", func(c echo.Context) error {
+		return config.Login(c, signinUsecase)
+	})
+
 	handler.InitRouting(e, newsHandler, signinHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
