@@ -12,5 +12,20 @@ func NewCalendarRepository() repository.CalendarRepository {
 }
 
 func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*domain.Calendar, error) {
-	return []*domain.Calendar{}, nil
+	return []*domain.Calendar{
+		{
+			Day: "1",
+			Plans: domain.Plans{
+				Title: []string{"1日目の予定"},
+				Link:  []string{"https://www.google.com/"},
+			},
+		},
+		{
+			Day: "2",
+			Plans: domain.Plans{
+				Title: []string{"2日目の予定"},
+				Link:  []string{"https://www.google.com/"},
+			},
+		},
+	}, nil
 }

@@ -2,8 +2,10 @@ package domain
 
 type Calendar struct {
 	Day   string
-	Plans struct {
-		Title []string
-		Link  []string
-	}
+	Plans Plans
+}
+
+type Plans struct {
+	Title []string
+	Link  []string
 }

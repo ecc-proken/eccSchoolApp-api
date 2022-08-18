@@ -8,7 +8,13 @@ import (
 )
 
 // InitRouting routesの初期化
-func InitRouting(e *echo.Echo, signinUsecase usecase.SigninUsecase, newsHandler NewsHandler, signinHandler SigninHandler, newsOnlyHandler NewsOnlyHandler) {
+func InitRouting(
+	e *echo.Echo, signinUsecase usecase.SigninUsecase,
+	newsHandler NewsHandler,
+	signinHandler SigninHandler,
+	newsOnlyHandler NewsOnlyHandler,
+	calendarHandler CalendarHandler,
+) {
 	e.POST("/login", func(c echo.Context) error {
 		return config.Login(c, signinUsecase)
 	})
@@ -26,4 +32,6 @@ func InitRouting(e *echo.Echo, signinUsecase usecase.SigninUsecase, newsHandler 
 	e.GET("/signin", signinHandler.Get())
 	// news-only
 	e.GET("/news/:id", newsOnlyHandler.Get())
+	// calendar
+	e.GET("/calendar", calendarHandler.Get())
 }
