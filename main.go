@@ -15,8 +15,14 @@ func init() {
 }
 
 func main() {
+	// repository
+	signinRepository := infrastructure.NewSigninRepository()
 	newsRepository := infrastructure.NewNewsRepository()
+	// usecase
+	signinUsecase := usecase.NewSigninUsecase(signinRepository)
 	newsUsecase := usecase.NewNewsUsecase(newsRepository)
+	// handler
+	signinHandler := handler.NewSigninHandler(signinUsecase)
 	newsHandler := handler.NewNewsHandler(newsUsecase)
 
 	e := echo.New()
@@ -25,7 +31,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	handler.InitRouting(e, newsHandler)
+	handler.InitRouting(e, newsHandler, signinHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
