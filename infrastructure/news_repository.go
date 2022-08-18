@@ -19,9 +19,9 @@ func NewNewsRepository(c *colly.Collector) repository.NewsRepository {
 	return &NewsRepository{c: c}
 }
 
-func (r *NewsRepository) Get() ([]*domain.News, error) {
+func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
 	// ログイン
-	c := config.AppLogin(r.c, os.Getenv("TEST_ID"), os.Getenv("TEST_PW"))
+	c := config.AppLogin(r.c, user.Id, user.Passwd)
 
 	// 初期化
 	id := []string{}
