@@ -1,6 +1,6 @@
 package domain
 
 type User struct {
-	Id     string
-	Passwd string
+	Id       string
+	Password string
 }
