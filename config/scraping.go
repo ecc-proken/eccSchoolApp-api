@@ -9,7 +9,7 @@ import (
 )
 
 // ログイン処理
-func AppLogin(user *domain.User) *colly.Collector {
+func ECCLogin(user *domain.User) *colly.Collector {
 	c := colly.NewCollector()
 
 	err := c.Post(os.Getenv("APP_DOMAIN")+os.Getenv("APP_LOGIN"),

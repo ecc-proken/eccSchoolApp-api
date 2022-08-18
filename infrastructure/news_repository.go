@@ -19,7 +19,7 @@ func NewNewsRepository() repository.NewsRepository {
 
 func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
 	// ログイン処理
-	c := config.AppLogin(user)
+	c := config.ECCLogin(user)
 
 	// 初期化
 	id := []string{}
