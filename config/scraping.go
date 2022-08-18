@@ -5,21 +5,20 @@ import (
 	"os"
 
 	"github.com/gocolly/colly"
+	"github.com/yumekiti/eccSchoolApp-api/domain"
 )
 
-func NewColly() *colly.Collector {
-	return colly.NewCollector()
-}
-
 // ログイン処理
-func AppLogin(c *colly.Collector, id, pw string) *colly.Collector {
+func AppLogin(user *domain.User) *colly.Collector {
+	c := colly.NewCollector()
+
 	err := c.Post(os.Getenv("APP_DOMAIN")+os.Getenv("APP_LOGIN"),
 		map[string]string{
 			"c":        "login_2",
 			"flg_auto": "1",
 			"token_a":  "",
-			"id":       id,
-			"pw":       pw,
+			"id":       user.Id,
+			"pw":       user.Passwd,
 		})
 	if err != nil {
 		log.Fatal(err)

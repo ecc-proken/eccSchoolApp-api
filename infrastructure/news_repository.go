@@ -11,17 +11,15 @@ import (
 	"github.com/yumekiti/eccSchoolApp-api/domain/repository"
 )
 
-type NewsRepository struct {
-	c *colly.Collector
-}
+type NewsRepository struct{}
 
-func NewNewsRepository(c *colly.Collector) repository.NewsRepository {
-	return &NewsRepository{c: c}
+func NewNewsRepository() repository.NewsRepository {
+	return &NewsRepository{}
 }
 
 func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
-	// ログイン
-	c := config.AppLogin(r.c, user.Id, user.Passwd)
+	// ログイン処理
+	c := config.AppLogin(user)
 
 	// 初期化
 	id := []string{}

@@ -15,7 +15,7 @@ func init() {
 }
 
 func main() {
-	newsRepository := infrastructure.NewNewsRepository(config.NewColly())
+	newsRepository := infrastructure.NewNewsRepository()
 	newsUsecase := usecase.NewNewsUsecase(newsRepository)
 	newsHandler := handler.NewNewsHandler(newsUsecase)
 
