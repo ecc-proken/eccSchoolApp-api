@@ -1,12 +1,12 @@
 package infrastructure
 
 import (
-	"log"
 	"os"
 	"strings"
 
 	"github.com/gocolly/colly"
 
+	"github.com/yumekiti/eccSchoolApp-api/config"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
 	"github.com/yumekiti/eccSchoolApp-api/domain/repository"
 )
@@ -20,25 +20,18 @@ func NewNewsRepository(c *colly.Collector) repository.NewsRepository {
 }
 
 func (r *NewsRepository) Get() ([]*domain.News, error) {
-	err := r.c.Post(os.Getenv("APP_DOMAIN")+os.Getenv("APP_LOGIN"),
-		map[string]string{
-			"c":        "login_2",
-			"flg_auto": "1",
-			"token_a":  "",
-			"id":       os.Getenv("TEST_ID"),
-			"pw":       os.Getenv("TEST_PW"),
-		})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// ログイン
+	c := config.AppLogin(r.c, os.Getenv("TEST_ID"), os.Getenv("TEST_PW"))
 
+	// 初期化
 	id := []string{}
 	title := []string{}
 	date := []string{}
 	tag := []string{}
 	link := []string{}
 
-	r.c.OnHTML("ul.news_list01 li", func(e *colly.HTMLElement) {
+	// ニュースを取得し、それぞれを配列に格納
+	c.OnHTML("ul.news_list01 li", func(e *colly.HTMLElement) {
 		// id取得
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			id = append(id, strings.Split(strings.Split(e.Attr("href"), "=")[2], "&")[0])
@@ -49,7 +42,7 @@ func (r *NewsRepository) Get() ([]*domain.News, error) {
 		})
 		// date取得
 		e.ForEach("dt", func(_ int, e *colly.HTMLElement) {
-			date = append(date, strings.Split(e.Text, " ")[0])
+			date = append(date, strings.Replace(strings.Split(e.Text, " ")[0], ".", "/", -1))
 		})
 		//tag取得
 		e.ForEach("dt", func(_ int, e *colly.HTMLElement) {
@@ -61,9 +54,10 @@ func (r *NewsRepository) Get() ([]*domain.News, error) {
 		})
 	})
 
-	r.c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS"))
+	// ニュースのリンク指定
+	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS"))
 
-	// news作成
+	// 配列からニュースを作成
 	news := []*domain.News{}
 	for i := 0; i < len(id); i++ {
 		news = append(news, &domain.News{
