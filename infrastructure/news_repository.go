@@ -46,7 +46,7 @@ func (r *NewsRepository) Get() ([]*domain.News, error) {
 		})
 		//tag取得
 		e.ForEach("dt", func(_ int, e *colly.HTMLElement) {
-			tag = append(tag, strings.Split(e.Text, " ")[1])
+			tag = append(tag, strings.Join(strings.Split(e.Text, " ")[1:], ""))
 		})
 		// link取得
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
