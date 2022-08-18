@@ -17,10 +17,13 @@ func InitRouting(e *echo.Echo, signinUsecase usecase.SigninUsecase, newsHandler 
 	r := e.Group("")
 	r.Use(middleware.JWTWithConfig(*config.JWTConfig()))
 
+	/*
+		開発後 e から r に変更する
+	*/
 	// news
-	r.GET("/news", newsHandler.Get())
+	e.GET("/news", newsHandler.Get())
 	// signin
-	r.GET("/signin", signinHandler.Get())
+	e.GET("/signin", signinHandler.Get())
 	// news-only
-	r.GET("/news-only", newsOnlyHandler.Get())
+	e.GET("/news-only", newsOnlyHandler.Get())
 }
