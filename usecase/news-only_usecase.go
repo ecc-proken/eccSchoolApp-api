@@ -6,7 +6,7 @@ import (
 )
 
 type NewsOnlyUsecase interface {
-	Get(*domain.User) (*domain.NewsOnly, error)
+	Get(id string, user *domain.User) (*domain.NewsOnly, error)
 }
 
 type newsOnlyUsecase struct {
@@ -17,8 +17,8 @@ func NewNewsOnlyUsecase(newsOnlyRepository repository.NewsOnlyRepository) NewsOn
 	return &newsOnlyUsecase{newsOnlyRepository: newsOnlyRepository}
 }
 
-func (u *newsOnlyUsecase) Get(user *domain.User) (*domain.NewsOnly, error) {
-	getNewsOnly, err := u.newsOnlyRepository.Get(user)
+func (u *newsOnlyUsecase) Get(id string, user *domain.User) (*domain.NewsOnly, error) {
+	getNewsOnly, err := u.newsOnlyRepository.Get(id, user)
 	if err != nil {
 		return nil, err
 	}

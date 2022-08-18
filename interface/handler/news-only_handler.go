@@ -33,11 +33,15 @@ type responseNewsOnly struct {
 
 func (h *newsOnlyHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		id := c.Param("id")
 		user := config.GetUser(c)
-		getNewsOnly, err := h.newsOnlyUsecase.Get(&domain.User{
-			Id:       user.Id,
-			Password: user.Password,
-		})
+		getNewsOnly, err := h.newsOnlyUsecase.Get(
+			id,
+			&domain.User{
+				Id:       user.Id,
+				Password: user.Password,
+			},
+		)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}

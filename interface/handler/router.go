@@ -25,5 +25,5 @@ func InitRouting(e *echo.Echo, signinUsecase usecase.SigninUsecase, newsHandler 
 	// signin
 	e.GET("/signin", signinHandler.Get())
 	// news-only
-	e.GET("/news-only", newsOnlyHandler.Get())
+	e.GET("/news/:id", newsOnlyHandler.Get())
 }

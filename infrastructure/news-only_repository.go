@@ -14,10 +14,12 @@ func NewNewsOnlyRepository() repository.NewsOnlyRepository {
 	return &NewsOnlyRepository{}
 }
 
-func (r *NewsOnlyRepository) Get(user *domain.User) (*domain.NewsOnly, error) {
+func (r *NewsOnlyRepository) Get(id string, user *domain.User) (*domain.NewsOnly, error) {
 	c := config.ECCLogin(user)
 
-	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS") + os.Getenv("APP_NEWS_LIST"))
+	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS"))
 
-	return &domain.NewsOnly{}, nil
+	return &domain.NewsOnly{
+		Title: id,
+	}, nil
 }
