@@ -18,7 +18,7 @@ func ECCLogin(user *domain.User) *colly.Collector {
 			"flg_auto": "1",
 			"token_a":  "",
 			"id":       user.Id,
-			"pw":       user.Passwd,
+			"pw":       user.Password,
 		})
 	if err != nil {
 		log.Fatal(err)

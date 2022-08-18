@@ -1,10 +1,8 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
@@ -32,16 +30,10 @@ type responseSignin struct {
 
 func (h *signinHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		user := c.Get("user").(*jwt.Token)
-		claims := user.Claims.(*config.JwtCustomClaims)
-		id := claims.User.Id
-		password := claims.User.Passwd
-
-		fmt.Print(id, password)
-
+		user := config.GetUser(c)
 		getSignin, err := h.signinUsecase.Get(&domain.User{
-			Id:     id,
-			Passwd: password,
+			Id:       user.Id,
+			Password: user.Password,
 		})
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())

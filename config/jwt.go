@@ -23,8 +23,8 @@ func Login(c echo.Context, signinUsecase usecase.SigninUsecase) error {
 
 	// check id and password
 	getSignin, err := signinUsecase.Get(&domain.User{
-		Id:     id,
-		Passwd: password,
+		Id:       id,
+		Password: password,
 	})
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
@@ -37,8 +37,8 @@ func Login(c echo.Context, signinUsecase usecase.SigninUsecase) error {
 	// Set custom claims
 	claims := &JwtCustomClaims{
 		User: domain.User{
-			Id:     id,
-			Passwd: password,
+			Id:       id,
+			Password: password,
 		},
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
@@ -63,5 +63,17 @@ func JWTConfig() *middleware.JWTConfig {
 	return &middleware.JWTConfig{
 		Claims:     &JwtCustomClaims{},
 		SigningKey: []byte("secret"),
+	}
+}
+
+func GetUser(c echo.Context) *domain.User {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*JwtCustomClaims)
+	id := claims.User.Id
+	password := claims.User.Password
+
+	return &domain.User{
+		Id:       id,
+		Password: password,
 	}
 }

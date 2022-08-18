@@ -2,9 +2,9 @@ package handler
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/labstack/echo/v4"
+	"github.com/yumekiti/eccSchoolApp-api/config"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
 	"github.com/yumekiti/eccSchoolApp-api/usecase"
 )
@@ -33,9 +33,10 @@ type responseNews struct {
 
 func (h *newsHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		user := config.GetUser(c)
 		getNews, err := h.newsUsecase.Get(&domain.User{
-			Id:     os.Getenv("TEST_ID"),
-			Passwd: os.Getenv("TEST_PW"),
+			Id:       user.Id,
+			Password: user.Password,
 		})
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
