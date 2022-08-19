@@ -20,16 +20,19 @@ func main() {
 	newsRepository := infrastructure.NewNewsRepository()
 	newsOnlyRepository := infrastructure.NewNewsOnlyRepository()
 	calendarRepository := infrastructure.NewCalendarRepository()
+	attendanceRepository := infrastructure.NewAttendanceRepository()
 	// usecase
 	signinUsecase := usecase.NewSigninUsecase(signinRepository)
 	newsUsecase := usecase.NewNewsUsecase(newsRepository)
 	newsOnlyUsecase := usecase.NewNewsOnlyUsecase(newsOnlyRepository)
 	calendarUsecase := usecase.NewCalendarUsecase(calendarRepository)
+	attendanceUsecase := usecase.NewAttendanceUsecase(attendanceRepository)
 	// handler
 	signinHandler := handler.NewSigninHandler(signinUsecase)
 	newsHandler := handler.NewNewsHandler(newsUsecase)
 	newsOnlyHandler := handler.NewNewsOnlyHandler(newsOnlyUsecase)
 	calendarHandler := handler.NewCalendarHandler(calendarUsecase)
+	attendanceHandler := handler.NewAttendanceHandler(attendanceUsecase)
 
 	// Echo instance
 	e := echo.New()
@@ -39,7 +42,13 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	handler.InitRouting(e, signinUsecase, newsHandler, signinHandler, newsOnlyHandler, calendarHandler)
+	handler.InitRouting(e, signinUsecase,
+		newsHandler,
+		signinHandler,
+		newsOnlyHandler,
+		calendarHandler,
+		attendanceHandler,
+	)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
