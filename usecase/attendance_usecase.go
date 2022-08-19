@@ -6,7 +6,7 @@ import (
 )
 
 type AttendanceUsecase interface {
-	Get(year, month string, user *domain.User) ([]*domain.Attendance, error)
+	Get(user *domain.User) ([]*domain.Attendance, error)
 }
 
 type attendanceUsecase struct {
@@ -17,7 +17,7 @@ func NewAttendanceUsecase(attendanceRepository repository.AttendanceRepository) 
 	return &attendanceUsecase{attendanceRepository: attendanceRepository}
 }
 
-func (u *attendanceUsecase) Get(year, month string, user *domain.User) ([]*domain.Attendance, error) {
+func (u *attendanceUsecase) Get(user *domain.User) ([]*domain.Attendance, error) {
 	getAttendance, err := u.attendanceRepository.Get(user)
 	if err != nil {
 		return nil, err
