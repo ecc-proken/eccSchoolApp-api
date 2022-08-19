@@ -33,5 +33,5 @@ func InitRouting(
 	// news-only
 	e.GET("/news/:id", newsOnlyHandler.Get())
 	// calendar
-	e.GET("/calendar", calendarHandler.Get())
+	e.GET("/calendar/:year/:month", calendarHandler.Get())
 }
