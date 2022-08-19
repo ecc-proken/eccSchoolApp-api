@@ -22,7 +22,4 @@ logs:
 app:
 	$(dc) exec app /bin/sh
 
-db:
-	$(dc) exec db /bin/sh
-
 .PHONY:	setup up down restart reup rm logs app db
