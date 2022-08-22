@@ -68,6 +68,7 @@ func JWTConfig() *middleware.JWTConfig {
 }
 
 func GetUser(c echo.Context) *domain.User {
+	// tokenからユーザー情報を取得
 	// user := c.Get("user").(*jwt.Token)
 	// claims := user.Claims.(*JwtCustomClaims)
 	// id := claims.User.Id

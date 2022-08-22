@@ -14,6 +14,7 @@ import (
 func ECCLogin(user *domain.User) *colly.Collector {
 	c := colly.NewCollector()
 
+	// ログイン
 	err := c.Post(os.Getenv("APP_DOMAIN")+os.Getenv("APP_LOGIN"),
 		map[string]string{
 			"c":        "login_2",
@@ -58,8 +59,10 @@ func FalconLogin(user *domain.User) (*colly.Collector, string) {
 		}
 	})
 
+	// ログイン前に必要な情報を取得
 	c.Visit(os.Getenv("FALCON") + "/eccmo/(S(" + token + "))/MO0100/MO0100_01.aspx")
 
+	// ログイン
 	err := c.Post(os.Getenv("FALCON")+"/eccmo/(S("+token+"))/MO0100/"+action,
 		map[string]string{
 			"__VIEWSTATE":     viewstate,
