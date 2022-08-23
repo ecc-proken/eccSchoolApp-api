@@ -29,7 +29,7 @@ func InitRouting(
 	*/
 	// news
 	e.GET("/news", newsHandler.Get())
-	// signin
+	// signin <- 要らないのでは？
 	e.GET("/signin", signinHandler.Get())
 	// news-only
 	e.GET("/news/:id", newsOnlyHandler.Get())
