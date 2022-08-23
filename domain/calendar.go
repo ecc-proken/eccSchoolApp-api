@@ -1,8 +1,9 @@
 package domain
 
+// カレンダー
 type Calendar struct {
-	Day   string
-	Plans Plans
+	Day   string // 日付
+	Plans Plans  // 予定
 }
 
 type Plans struct {

@@ -1,5 +1,6 @@
 package domain
 
+// ニュース一覧
 type News struct {
 	Id    string
 	Title string
