@@ -42,7 +42,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	handler.InitRouting(e, signinUsecase,
+	handler.InitRouting(e,
 		newsHandler,
 		signinHandler,
 		newsOnlyHandler,
