@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -51,8 +49,6 @@ func main() {
 		calendarHandler,
 		attendanceHandler,
 	)
-
-	fmt.Println("Server is running on port :" + config.GetEnv("PORT", "8080"))
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + config.GetEnv("PORT", "8080")))
