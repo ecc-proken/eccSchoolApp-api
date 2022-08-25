@@ -53,14 +53,24 @@ func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*doma
 
 	calendar := []*domain.Calendar{}
 	for i := 0; i < len(day); i++ {
-		if len(title[i]) > 0 {
+		if day[i] != "" {
 			calendar = append(calendar, &domain.Calendar{
-				Day: day[i],
-				Plans: domain.Plans{
-					Title: title[i],
-					Link:  link[i],
-				},
+				Day:   day[i],
+				Plans: []domain.Plans{},
 			})
+			for j := 0; j < len(title[i]); j++ {
+				calendar[i].Plans = append(calendar[i].Plans, domain.Plans{
+					Title: title[i][j],
+					Link:  link[i][j],
+				})
+			}
+		}
+	}
+
+	for i := 0; i < len(calendar); i++ {
+		if len(calendar[i].Plans) == 0 {
+			calendar = append(calendar[:i], calendar[i+1:]...)
+			i--
 		}
 	}
 

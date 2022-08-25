@@ -25,9 +25,9 @@ type requestCalendar struct{}
 
 type responseCalendar struct {
 	Day   string `json:"day"`
-	Plans struct {
-		Title []string `json:"title"`
-		Link  []string `json:"link"`
+	Plans []struct {
+		Title string `json:"title"`
+		Link  string `json:"link"`
 	} `json:"plans"`
 }
 
@@ -52,14 +52,20 @@ func (h *calendarHandler) Get() echo.HandlerFunc {
 		for _, calendar := range getCalendar {
 			res = append(res, responseCalendar{
 				Day: calendar.Day,
-				Plans: struct {
-					Title []string `json:"title"`
-					Link  []string `json:"link"`
-				}{
-					Title: calendar.Plans.Title,
-					Link:  calendar.Plans.Link,
-				},
+				Plans: []struct {
+					Title string `json:"title"`
+					Link  string `json:"link"`
+				}{},
 			})
+			for _, plan := range calendar.Plans {
+				res[len(res)-1].Plans = append(res[len(res)-1].Plans, struct {
+					Title string `json:"title"`
+					Link  string `json:"link"`
+				}{
+					Title: plan.Title,
+					Link:  plan.Link,
+				})
+			}
 		}
 
 		return c.JSON(http.StatusOK, res)
