@@ -34,3 +34,33 @@ https://echo.labstack.com/
 | infrastructure |
 +----------------+
 ```
+
+## systemd
+
+```sh
+su -
+
+cd /root/go/src/eccSchoolApp-api
+cp .env.example .env
+make build
+
+cat << EOF > /lib/systemd/system/eccSchoolApp-api.service
+[Unit]
+Description = eccSchoolApp-api.service daemon
+
+[Service]
+Environment="GOPATH=/root/go"
+WorkingDirectory=/root/go/src/eccSchoolApp-api
+ExecStart=/root/go/src/eccSchoolApp-api/build/eccSchoolApp-api
+Restart=always
+Type=simple
+User=root
+
+[Install]
+WantedBy = multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl restart eccSchoolApp-api.service
+systemctl enable eccSchoolApp-api.service
+```
