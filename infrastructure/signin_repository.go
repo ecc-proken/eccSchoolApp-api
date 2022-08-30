@@ -17,11 +17,12 @@ func NewSigninRepository() repository.SigninRepository {
 }
 
 func (r *SigninRepository) Get(user *domain.User) (*domain.Signin, error) {
-	// ログイン処理
 	c := config.ECCLogin(user)
 
+	// 返す値の初期化
+	var title string
+
 	// title取得
-	title := ""
 	c.OnHTML(".home_back", func(e *colly.HTMLElement) {
 		title = e.Text
 		fmt.Print(title)
