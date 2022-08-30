@@ -18,35 +18,34 @@ func NewNewsRepository() repository.NewsRepository {
 }
 
 func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
-	// ログイン処理
 	c := config.ECCLogin(user)
 
-	// 初期化
-	id := []string{}
-	title := []string{}
-	date := []string{}
-	tag := []string{}
-	link := []string{}
+	// 返す値の初期化
+	var id []string
+	var title []string
+	var date []string
+	var tag []string
+	var link []string
 
 	// ニュースを取得し、それぞれを配列に格納
 	c.OnHTML("ul.news_list01 li", func(e *colly.HTMLElement) {
-		// id取得
+		// id
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			id = append(id, strings.Split(strings.Split(e.Attr("href"), "=")[2], "&")[0])
 		})
-		// title取得
+		// title
 		e.ForEach("dd", func(_ int, e *colly.HTMLElement) {
 			title = append(title, e.Text)
 		})
-		// date取得
+		// date
 		e.ForEach("dt", func(_ int, e *colly.HTMLElement) {
 			date = append(date, strings.Replace(strings.Split(e.Text, " ")[0], ".", "/", -1))
 		})
-		//tag取得
+		//tag
 		e.ForEach("dt", func(_ int, e *colly.HTMLElement) {
 			tag = append(tag, strings.Join(strings.Split(e.Text, " ")[1:], ""))
 		})
-		// link取得
+		// link
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			link = append(link, os.Getenv("APP_DOMAIN")+os.Getenv("APP_NEWS")+e.Attr("href")[2:])
 		})
@@ -55,7 +54,7 @@ func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
 	// ニュースのリンク指定
 	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS") + os.Getenv("APP_NEWS_LIST"))
 
-	// 配列からニュースを作成
+	// 返す値から news を作成
 	news := []*domain.News{}
 	for i := 0; i < len(id); i++ {
 		news = append(news, &domain.News{
