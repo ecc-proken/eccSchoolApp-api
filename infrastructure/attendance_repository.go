@@ -21,27 +21,30 @@ func NewAttendanceRepository() repository.AttendanceRepository {
 func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, error) {
 	c, token := config.FalconLogin(user)
 
-	// 初期化
-	title := []string{}
-	rate := []string{}
-	absence := []string{}
-	lateness := []string{}
+	// 返す値の初期化
+	var title []string
+	var rate []string
+	var absence []string
+	var lateness []string
 
-	tmp := [][]string{}
-	action := ""
-	viewstate := ""
-	venttarget := "lstSyussekiRitsu"
+	// 取得時に必要な値を初期化
+	var tmp [][]string
+	var action string
+	var viewstate string
 
+	// viewstate を取得
 	c.OnHTML("input", func(e *colly.HTMLElement) {
 		if e.Attr("name") == "__VIEWSTATE" {
 			viewstate = e.Attr("value")
 		}
 	})
 
+	// action を取得
 	c.OnHTML("form", func(e *colly.HTMLElement) {
 		action = e.Attr("action")
 	})
 
+	// tmp を取得
 	c.OnHTML("form", func(e *colly.HTMLElement) {
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			if e.Text == "戻る" {
@@ -79,6 +82,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 				return
 			}
 
+			// absence lateness
 			if len(v) == 2 {
 				absence = append(absence, strings.Split(e.Text, "欠　席:")[1][:1])
 				lateness = append(lateness, strings.Split(e.Text, "遅　刻:")[1][:1])
@@ -93,7 +97,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 		err := c.Post(os.Getenv("FALCON")+"/eccmo/(S("+token+"))/MO0500/"+action,
 			map[string]string{
 				"__VIEWSTATE":     viewstate,
-				"__EVENTTARGET":   venttarget,
+				"__EVENTTARGET":   "lstSyussekiRitsu",
 				"__EVENTARGUMENT": fmt.Sprint(i),
 			})
 		if err != nil {
