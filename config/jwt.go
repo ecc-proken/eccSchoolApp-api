@@ -64,7 +64,6 @@ func GetUser(c echo.Context) *domain.User {
 		Password: password,
 	}
 
-	// 開発後上のコメントアウトを有効にし下記は削除
 	// return &domain.User{
 	// 	Id:       os.Getenv("TEST_ID"),
 	// 	Password: os.Getenv("TEST_PW"),

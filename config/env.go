@@ -15,6 +15,7 @@ func LoadEnv() {
 	}
 }
 
+// .envファイルから取得した値を返すか、デフォルト値を返す
 func GetEnv(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if len(value) == 0 {
