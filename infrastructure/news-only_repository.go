@@ -55,7 +55,7 @@ func (r *NewsOnlyRepository) Get(id string, user *domain.User) (*domain.NewsOnly
 			if e.Attr("href") == "../" {
 				return
 			}
-			attachment = append(attachment, e.Attr("href"))
+			attachment = append(attachment, os.Getenv("APP_DOMAIN")+e.Attr("href"))
 		})
 	})
 
