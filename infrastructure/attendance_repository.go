@@ -46,8 +46,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			if e.Text == "戻る" {
 				return
-			}
-			if len(strings.Split(e.Text, " ")) == 2 {
+			} else if e.Text != "メインメニュー" && e.Text != "欠席詳細" {
 				tmp = append(tmp, strings.Split(e.Text, " "))
 			}
 		})
@@ -55,11 +54,24 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 
 	c.Visit(os.Getenv("FALCON") + "/eccmo/(S(" + token + "))/MO0500/MO0500_01.aspx?mode=1")
 
+	// tmp 空白削除
+	for i := 0; i < len(tmp); i++ {
+		for j := 0; j < len(tmp[i]); j++ {
+			if tmp[i][j] == "" {
+				tmp[i] = append(tmp[i][:j], tmp[i][j+1:]...)
+			}
+		}
+	}
+
 	for i, v := range tmp {
 		// title
 		title = append(title, v[0])
 		// rate
-		rate = append(rate, v[1])
+		if len(v) == 2 {
+			rate = append(rate, v[1])
+		} else {
+			rate = append(rate, "0%")
+		}
 
 		flag := false
 		c.OnHTML("form", func(e *colly.HTMLElement) {
@@ -67,8 +79,13 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 				return
 			}
 
-			absence = append(absence, strings.Split(e.Text, "欠　席:")[1][:1])
-			lateness = append(lateness, strings.Split(e.Text, "遅　刻:")[1][:1])
+			if len(v) == 2 {
+				absence = append(absence, strings.Split(e.Text, "欠　席:")[1][:1])
+				lateness = append(lateness, strings.Split(e.Text, "遅　刻:")[1][:1])
+			} else {
+				absence = append(absence, "0")
+				lateness = append(lateness, "0")
+			}
 
 			flag = true
 		})
