@@ -17,15 +17,13 @@ func NewCalendarRepository() repository.CalendarRepository {
 }
 
 func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*domain.Calendar, error) {
-	// ログイン
 	c := config.ECCLogin(user)
 
-	// 初期化
-	day := []string{}
-	title := [][]string{}
-	link := [][]string{}
+	// 返す値の初期化
+	var day []string
+	var title [][]string
+	var link [][]string
 
-	// 取得
 	c.OnHTML("ul", func(e *colly.HTMLElement) {
 		e.ForEach("li", func(i int, e *colly.HTMLElement) {
 			// day
@@ -67,6 +65,7 @@ func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*doma
 		}
 	}
 
+	// Plans が空の場合削除
 	for i := 0; i < len(calendar); i++ {
 		if len(calendar[i].Plans) == 0 {
 			calendar = append(calendar[:i], calendar[i+1:]...)
