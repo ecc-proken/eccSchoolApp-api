@@ -1,7 +1,6 @@
 package infrastructure
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
@@ -20,26 +19,23 @@ func NewNewsOnlyRepository() repository.NewsOnlyRepository {
 func (r *NewsOnlyRepository) Get(id string, user *domain.User) (*domain.NewsOnly, error) {
 	c := config.ECCLogin(user)
 
-	// 初期化
-	title := ""
-	body := ""
-	date := ""
-	tag := ""
-	attachment := []string{}
+	// 返す値の初期化
+	var title string
+	var body string
+	var date string
+	var tag string
+	var attachment []string
 
-	// ニュースを取得し、それぞれ格納
 	// title
 	c.OnHTML(".title", func(e *colly.HTMLElement) {
 		title = e.Text
 	})
 	// body
 	c.OnHTML(".news div ~ div", func(e *colly.HTMLElement) {
-		// htmlを取得
 		html, err := e.DOM.Html()
 		if err != nil {
 			return
 		}
-		// bodyにhtmlを格納されるまで待機
 		for body == "" {
 			body = html
 		}
@@ -65,13 +61,13 @@ func (r *NewsOnlyRepository) Get(id string, user *domain.User) (*domain.NewsOnly
 
 	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS") + os.Getenv("APP_NEWS_ONLY_FRONT") + id + os.Getenv("APP_NEWS_ONLY_BACK"))
 
-	fmt.Print(body)
-
-	return &domain.NewsOnly{
+	// 返す値から newsOnly を作成
+	newsOnly := &domain.NewsOnly{
 		Title:      title,
 		Body:       body,
 		Date:       date,
 		Tag:        tag,
 		Attachment: attachment,
-	}, nil
+	}
+	return newsOnly, nil
 }
