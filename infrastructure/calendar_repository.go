@@ -49,6 +49,7 @@ func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*doma
 
 	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_CALENDAR") + os.Getenv("APP_CALENDAR_LIST") + "&cal_yy=" + year + "&cal_mm=" + month)
 
+	// 返す値から calendar を作成
 	calendar := []*domain.Calendar{}
 	for i := 0; i < len(day); i++ {
 		if day[i] != "" {

@@ -105,6 +105,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 		}
 	}
 
+	// 返す値から attendance を作成
 	attendance := []*domain.Attendance{}
 	for i, v := range title {
 		attendance = append(attendance, &domain.Attendance{
