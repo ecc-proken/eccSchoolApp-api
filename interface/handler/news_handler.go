@@ -35,7 +35,7 @@ func (h *newsHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := config.GetUser(c)
 		getNews, err := h.newsUsecase.Get(&domain.User{
-			Id:       user.Id,
+			ID:       user.ID,
 			Password: user.Password,
 		})
 		if err != nil {
@@ -45,7 +45,7 @@ func (h *newsHandler) Get() echo.HandlerFunc {
 		res := []responseNews{}
 		for _, news := range getNews {
 			res = append(res, responseNews{
-				ID:    news.Id,
+				ID:    news.ID,
 				Title: news.Title,
 				Date:  news.Date,
 				Tag:   news.Tag,

@@ -2,7 +2,7 @@ package domain
 
 // ニュース一覧
 type News struct {
-	Id    string
+	ID    string
 	Title string
 	Date  string
 	Tag   string

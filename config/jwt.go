@@ -23,7 +23,7 @@ func Login(c echo.Context) error {
 	// Set custom claims
 	claims := &JwtCustomClaims{
 		User: domain.User{
-			Id:       id,
+			ID:       id,
 			Password: password,
 		},
 		StandardClaims: jwt.StandardClaims{
@@ -56,11 +56,11 @@ func GetUser(c echo.Context) *domain.User {
 	// tokenからユーザー情報を取得
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(*JwtCustomClaims)
-	id := claims.User.Id
+	id := claims.User.ID
 	password := claims.User.Password
 
 	return &domain.User{
-		Id:       id,
+		ID:       id,
 		Password: password,
 	}
 

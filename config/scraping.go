@@ -19,7 +19,7 @@ func ECCLogin(user *domain.User) *colly.Collector {
 			"c":        "login_2",
 			"flg_auto": "1",
 			"token_a":  "",
-			"id":       user.Id,
+			"id":       user.ID,
 			"pw":       user.Password,
 		})
 	if err != nil {
@@ -66,7 +66,7 @@ func FalconLogin(user *domain.User) (*colly.Collector, string) {
 			"__VIEWSTATE":     viewstate,
 			"__EVENTTARGET":   "",
 			"__EVENTARGUMENT": "",
-			"txtUserId":       user.Id,
+			"txtUserId":       user.ID,
 			"txtPassword":     user.Password,
 			"btnLogin":        "",
 		})

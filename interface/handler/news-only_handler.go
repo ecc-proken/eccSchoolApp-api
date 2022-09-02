@@ -38,7 +38,7 @@ func (h *newsOnlyHandler) Get() echo.HandlerFunc {
 		getNewsOnly, err := h.newsOnlyUsecase.Get(
 			id,
 			&domain.User{
-				Id:       user.Id,
+				ID:       user.ID,
 				Password: user.Password,
 			},
 		)

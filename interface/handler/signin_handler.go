@@ -32,7 +32,7 @@ func (h *signinHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := config.GetUser(c)
 		getSignin, err := h.signinUsecase.Get(&domain.User{
-			Id:       user.Id,
+			ID:       user.ID,
 			Password: user.Password,
 		})
 		if err != nil {

@@ -2,6 +2,6 @@ package domain
 
 // ユーザー
 type User struct {
-	Id       string
+	ID       string
 	Password string
 }

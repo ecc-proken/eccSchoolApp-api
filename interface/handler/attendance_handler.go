@@ -35,7 +35,7 @@ func (h *attendanceHandler) Get() echo.HandlerFunc {
 		user := config.GetUser(c)
 		getAttendance, err := h.attendanceUsecase.Get(
 			&domain.User{
-				Id:       user.Id,
+				ID:       user.ID,
 				Password: user.Password,
 			},
 		)
