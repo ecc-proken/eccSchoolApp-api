@@ -64,3 +64,20 @@ systemctl daemon-reload
 systemctl restart eccSchoolApp-api.service
 systemctl enable eccSchoolApp-api.service
 ```
+
+## varnish
+
+```sh
+sub vcl_recv {
+  if (req.url ~ "/signin" || req.url ~ "/uuid") {
+    return (pipe);
+  }
+  return (hash);
+}
+
+sub vcl_backend_response {
+  if (! (beresp.status == 200)) {
+    set beresp.ttl = 60s;
+  }
+}
+```
