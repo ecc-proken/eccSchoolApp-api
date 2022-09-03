@@ -78,6 +78,8 @@ sub vcl_recv {
 sub vcl_backend_response {
   if (! (beresp.status == 200)) {
     set beresp.ttl = 60s;
+    set beresp.uncacheable = true;
+    return (deliver);
   }
 }
 ```
