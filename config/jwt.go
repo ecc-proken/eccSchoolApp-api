@@ -78,6 +78,6 @@ func GetUUID() echo.HandlerFunc {
 		claims := user.Claims.(*JwtCustomClaims)
 		uuid := claims.User.UUID
 
-		return c.String(http.StatusOK, uuid)
+		return c.JSON(http.StatusOK, echo.Map{"uuid": uuid})
 	}
 }
