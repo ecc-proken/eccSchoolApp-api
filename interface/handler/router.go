@@ -18,19 +18,22 @@ func InitRouting(
 	e.POST("/signin", func(c echo.Context) error {
 		return config.Login(c)
 	})
+	e.GET("/uuid", func(c echo.Context) error {
+		return config.GetUUID(c)
+	})
 
 	// 以下のルーティングはJWT認証が必要
 	r := e.Group("")
 	r.Use(middleware.JWTWithConfig(*config.JWTConfig()))
 
 	// news
-	r.GET("/news", newsHandler.Get())
+	r.GET(":uuid/news", newsHandler.Get())
 	// signin
-	r.GET("/signin", signinHandler.Get())
+	r.GET(":uuid/signin", signinHandler.Get())
 	// news-only
-	r.GET("/news/:id", newsOnlyHandler.Get())
+	r.GET(":uuid/news/:id", newsOnlyHandler.Get())
 	// calendar
-	r.GET("/calendar/:year/:month", calendarHandler.Get())
+	r.GET(":uuid/calendar/:year/:month", calendarHandler.Get())
 	// attendance
-	r.GET("/attendance", attendanceHandler.Get())
+	r.GET(":uuid/attendance", attendanceHandler.Get())
 }

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
@@ -25,6 +26,7 @@ func Login(c echo.Context) error {
 		User: domain.User{
 			ID:       id,
 			Password: password,
+			UUID:     uuid.New().String(),
 		},
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
@@ -68,4 +70,10 @@ func GetUser(c echo.Context) *domain.User {
 	// 	Id:       os.Getenv("TEST_ID"),
 	// 	Password: os.Getenv("TEST_PW"),
 	// }
+}
+
+func GetUUID(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*JwtCustomClaims)
+	return c.String(http.StatusOK, claims.User.UUID)
 }
