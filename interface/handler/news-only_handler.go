@@ -33,6 +33,11 @@ type responseNewsOnly struct {
 
 func (h *newsOnlyHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		uuid := c.Param("uuid")
+		if uuid != config.GetUser(c).UUID {
+			return echo.NewHTTPError(http.StatusUnauthorized, "invalid uuid")
+		}
+
 		id := c.Param("id")
 		user := config.GetUser(c)
 		getNewsOnly, err := h.newsOnlyUsecase.Get(

@@ -33,6 +33,11 @@ type responseCalendar struct {
 
 func (h *calendarHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		uuid := c.Param("uuid")
+		if uuid != config.GetUser(c).UUID {
+			return echo.NewHTTPError(http.StatusUnauthorized, "invalid uuid")
+		}
+
 		year := c.Param("year")
 		month := c.Param("month")
 		user := config.GetUser(c)

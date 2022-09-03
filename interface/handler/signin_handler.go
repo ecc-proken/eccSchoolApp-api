@@ -30,6 +30,11 @@ type responseSignin struct {
 
 func (h *signinHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		uuid := c.Param("uuid")
+		if uuid != config.GetUser(c).UUID {
+			return echo.NewHTTPError(http.StatusUnauthorized, "invalid uuid")
+		}
+
 		user := config.GetUser(c)
 		getSignin, err := h.signinUsecase.Get(&domain.User{
 			ID:       user.ID,

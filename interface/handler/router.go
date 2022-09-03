@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -23,7 +25,9 @@ func InitRouting(
 	r := e.Group("")
 	r.Use(middleware.JWTWithConfig(*config.JWTConfig()))
 
-	r.GET("/uuid", config.GetUUID())
+	r.GET("/uuid", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, echo.Map{"uuid": config.GetUser(c).UUID})
+	})
 	// news
 	r.GET(":uuid/news", newsHandler.Get())
 	// signin

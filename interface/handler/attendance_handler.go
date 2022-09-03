@@ -32,6 +32,11 @@ type responseAttendance struct {
 
 func (h *attendanceHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		uuid := c.Param("uuid")
+		if uuid != config.GetUser(c).UUID {
+			return echo.NewHTTPError(http.StatusUnauthorized, "invalid uuid")
+		}
+
 		user := config.GetUser(c)
 		getAttendance, err := h.attendanceUsecase.Get(
 			&domain.User{

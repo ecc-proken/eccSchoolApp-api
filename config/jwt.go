@@ -60,24 +60,17 @@ func GetUser(c echo.Context) *domain.User {
 	claims := user.Claims.(*JwtCustomClaims)
 	id := claims.User.ID
 	password := claims.User.Password
+	uuid := claims.User.UUID
 
 	return &domain.User{
 		ID:       id,
 		Password: password,
+		UUID:     uuid,
 	}
 
 	// return &domain.User{
 	// 	Id:       os.Getenv("TEST_ID"),
 	// 	Password: os.Getenv("TEST_PW"),
+	//  UUID:     os.Getenv("TEST_UUID"),
 	// }
-}
-
-func GetUUID() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := c.Get("user").(*jwt.Token)
-		claims := user.Claims.(*JwtCustomClaims)
-		uuid := claims.User.UUID
-
-		return c.JSON(http.StatusOK, echo.Map{"uuid": uuid})
-	}
 }
