@@ -72,8 +72,12 @@ func GetUser(c echo.Context) *domain.User {
 	// }
 }
 
-func GetUUID(c echo.Context) error {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(*JwtCustomClaims)
-	return c.String(http.StatusOK, claims.User.UUID)
+func GetUUID() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		user := c.Get("user").(*jwt.Token)
+		claims := user.Claims.(*JwtCustomClaims)
+		uuid := claims.User.UUID
+
+		return c.String(http.StatusOK, uuid)
+	}
 }
