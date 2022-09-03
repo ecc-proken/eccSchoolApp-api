@@ -80,5 +80,6 @@ sub vcl_backend_response {
     set beresp.uncacheable = true;
     return (deliver);
   }
+  set beresp.ttl = 3600s;
 }
 ```
