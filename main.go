@@ -21,18 +21,21 @@ func main() {
 	newsOnlyRepository := infrastructure.NewNewsOnlyRepository()
 	calendarRepository := infrastructure.NewCalendarRepository()
 	attendanceRepository := infrastructure.NewAttendanceRepository()
+	timetableRepository := infrastructure.NewTimetableRepository()
 	// usecase
 	signinUsecase := usecase.NewSigninUsecase(signinRepository)
 	newsUsecase := usecase.NewNewsUsecase(newsRepository)
 	newsOnlyUsecase := usecase.NewNewsOnlyUsecase(newsOnlyRepository)
 	calendarUsecase := usecase.NewCalendarUsecase(calendarRepository)
 	attendanceUsecase := usecase.NewAttendanceUsecase(attendanceRepository)
+	timetableUsecase := usecase.NewTimetableUsecase(timetableRepository)
 	// handler
 	signinHandler := handler.NewSigninHandler(signinUsecase)
 	newsHandler := handler.NewNewsHandler(newsUsecase)
 	newsOnlyHandler := handler.NewNewsOnlyHandler(newsOnlyUsecase)
 	calendarHandler := handler.NewCalendarHandler(calendarUsecase)
 	attendanceHandler := handler.NewAttendanceHandler(attendanceUsecase)
+	timetableHandler := handler.NewTimetableHandler(timetableUsecase)
 
 	// Echo instance
 	e := echo.New()
@@ -48,6 +51,7 @@ func main() {
 		newsOnlyHandler,
 		calendarHandler,
 		attendanceHandler,
+		timetableHandler,
 	)
 
 	// Start server

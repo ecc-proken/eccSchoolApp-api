@@ -11,7 +11,7 @@ func NewTimetableRepository() repository.TimetableRepository {
 	return &TimetableRepository{}
 }
 
-func (r *TimetableRepository) Get(week string, timetable *domain.Timetable) (*domain.Timetable, error) {
+func (r *TimetableRepository) Get(week string, user *domain.User) (*domain.Timetable, error) {
 	return &domain.Timetable{
 		Date:    "2021-01-01",
 		Weekday: "月",

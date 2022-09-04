@@ -16,6 +16,7 @@ func InitRouting(
 	newsOnlyHandler NewsOnlyHandler,
 	calendarHandler CalendarHandler,
 	attendanceHandler AttendanceHandler,
+	timetableHandler TimetableHandler,
 ) {
 	e.POST("/signin", func(c echo.Context) error {
 		return config.Login(c)
@@ -38,4 +39,6 @@ func InitRouting(
 	r.GET(":uuid/calendar/:year/:month", calendarHandler.Get())
 	// attendance
 	r.GET(":uuid/attendance", attendanceHandler.Get())
+	// timetable
+	r.GET(":uuid/timetable/:week", timetableHandler.Get())
 }
