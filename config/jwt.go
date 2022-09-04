@@ -2,7 +2,6 @@ package config
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -56,22 +55,22 @@ func JWTConfig() *middleware.JWTConfig {
 }
 
 func GetUser(c echo.Context) *domain.User {
-	// // tokenからユーザー情報を取得
-	// user := c.Get("user").(*jwt.Token)
-	// claims := user.Claims.(*JwtCustomClaims)
-	// id := claims.User.ID
-	// password := claims.User.Password
-	// uuid := claims.User.UUID
-
-	// return &domain.User{
-	// 	ID:       id,
-	// 	Password: password,
-	// 	UUID:     uuid,
-	// }
+	// tokenからユーザー情報を取得
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*JwtCustomClaims)
+	id := claims.User.ID
+	password := claims.User.Password
+	uuid := claims.User.UUID
 
 	return &domain.User{
-		ID:       os.Getenv("TEST_ID"),
-		Password: os.Getenv("TEST_PW"),
-		UUID:     os.Getenv("TEST_UUID"),
+		ID:       id,
+		Password: password,
+		UUID:     uuid,
 	}
+
+	// return &domain.User{
+	// 	ID:       os.Getenv("TEST_ID"),
+	// 	Password: os.Getenv("TEST_PW"),
+	// 	UUID:     os.Getenv("TEST_UUID"),
+	// }
 }
