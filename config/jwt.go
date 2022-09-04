@@ -16,16 +16,24 @@ type JwtCustomClaims struct {
 	jwt.StandardClaims
 }
 
+// {id: string, pw: string}
+type Param struct {
+	ID       string `json:"id"`
+	Password string `json:"pw"`
+}
+
 func Login(c echo.Context) error {
 	// Bind
-	id := c.FormValue("id")
-	password := c.FormValue("password")
+	param := new(Param)
+	if err := c.Bind(param); err != nil {
+		return err
+	}
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
 		User: domain.User{
-			ID:       id,
-			Password: password,
+			ID:       param.ID,
+			Password: param.Password,
 			UUID:     uuid.New().String(),
 		},
 		StandardClaims: jwt.StandardClaims{
