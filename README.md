@@ -95,4 +95,13 @@ sub vcl_backend_response {
   }
   set beresp.ttl = 3600s;
 }
+
+sub vcl_deliver {
+  set resp.http.Access-Control-Allow-Origin = "*";
+
+  if (req.method == "OPTIONS") {
+    set resp.http.Access-Control-Allow-Methods = "GET, POST, OPTIONS";
+    set resp.http.Access-Control-Allow-Headers = "*";
+  }
+}
 ```
