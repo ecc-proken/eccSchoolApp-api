@@ -35,6 +35,19 @@ https://echo.labstack.com/
 +----------------+
 ```
 
+## example
+
+```shell
+# login
+curl -X POST -H "Content-Type: application/json" -d '{"id":"220000", "pw":"000000"}' https://eccschoolapp-api.yumekiti.net/signin
+
+# uuid
+curl https://eccschoolapp-api.yumekiti.net/uuid -H "Authorization: Bearer <token>"
+
+# news
+curl https://eccschoolapp-api.yumekiti.net/<uuid>/news -H "Authorization: Bearer <token>"
+```
+
 ## systemd
 
 ```sh
