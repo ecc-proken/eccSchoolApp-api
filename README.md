@@ -102,6 +102,8 @@ sub vcl_deliver {
   if (req.method == "OPTIONS") {
     set resp.http.Access-Control-Allow-Methods = "GET, POST, OPTIONS";
     set resp.http.Access-Control-Allow-Headers = "*";
+
+    set resp.status = 204;
   }
 }
 ```
