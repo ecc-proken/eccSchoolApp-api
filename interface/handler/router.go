@@ -40,5 +40,5 @@ func InitRouting(
 	// attendance
 	r.GET(":uuid/attendance", attendanceHandler.Get())
 	// timetable
-	r.GET(":uuid/timetable/:week", timetableHandler.Get())
+	e.GET(":uuid/timetable/:week", timetableHandler.Get())
 }

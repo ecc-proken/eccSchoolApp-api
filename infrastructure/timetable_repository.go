@@ -12,6 +12,16 @@ func NewTimetableRepository() repository.TimetableRepository {
 }
 
 func (r *TimetableRepository) Get(week string, user *domain.User) (*domain.Timetable, error) {
+	// c, token := config.FalconLogin(user)
+
+	// 返す値の初期化
+	// var Date string
+	// var Weekday string
+	// var Period []string
+	// var SubjectTitle []string
+	// var Classroom []string
+	// var Teacher []string
+
 	return &domain.Timetable{
 		Date:    "2021-01-01",
 		Weekday: "月",
