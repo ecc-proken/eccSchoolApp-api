@@ -28,9 +28,9 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 	var lateness []string
 
 	// 取得時に必要な値を初期化
-	var tmp [][]string
-	var action string
-	var viewstate string
+	var tmp [][]string   // 授業名と出席率を格納する配列
+	var action string    // リクエストの種類を格納する変数
+	var viewstate string // viewstateを格納する変数
 
 	// viewstate を取得
 	c.OnHTML("input", func(e *colly.HTMLElement) {
@@ -47,9 +47,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 	// tmp を取得
 	c.OnHTML("form", func(e *colly.HTMLElement) {
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
-			if e.Text == "戻る" {
-				return
-			} else if e.Text != "メインメニュー" && e.Text != "欠席詳細" {
+			if e.Text != "メインメニュー" && e.Text != "欠席詳細" && e.Text != "戻る" {
 				tmp = append(tmp, strings.Split(e.Text, " "))
 			}
 		})

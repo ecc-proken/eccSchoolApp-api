@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -44,9 +45,10 @@ func (h *timetableHandler) Get() echo.HandlerFunc {
 		}
 
 		week := c.Param("week")
+		weekInt, err := strconv.Atoi(week)
 		user := config.GetUser(c)
 		getTimetable, err := h.timetableUsecase.Get(
-			week,
+			weekInt,
 			&domain.User{
 				ID:       user.ID,
 				Password: user.Password,

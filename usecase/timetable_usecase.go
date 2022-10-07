@@ -6,7 +6,7 @@ import (
 )
 
 type TimetableUsecase interface {
-	Get(week string, user *domain.User) (*domain.Timetable, error)
+	Get(week int, user *domain.User) (*domain.Timetable, error)
 }
 
 type timetableUsecase struct {
@@ -17,7 +17,7 @@ func NewTimetableUsecase(timetableRepository repository.TimetableRepository) Tim
 	return &timetableUsecase{timetableRepository: timetableRepository}
 }
 
-func (u *timetableUsecase) Get(week string, user *domain.User) (*domain.Timetable, error) {
+func (u *timetableUsecase) Get(week int, user *domain.User) (*domain.Timetable, error) {
 	getTimetable, err := u.timetableRepository.Get(week, user)
 	if err != nil {
 		return nil, err
