@@ -32,11 +32,13 @@ func (r *TimetableRepository) Get(week int, user *domain.User) (*domain.Timetabl
 	var viewstate string // viewstateを格納する変数
 	var links []string   // リンクを格納する配列
 	weeks := []map[string]string{
-		{"english": "Monday", "japanese": "月曜日"},
-		{"english": "Tuesday", "japanese": "火曜日"},
-		{"english": "Wednesday", "japanese": "水曜日"},
-		{"english": "Thursday", "japanese": "木曜日"},
-		{"english": "Friday", "japanese": "金曜日"},
+		{"english": "Monday", "japanese": "月"},
+		{"english": "Tuesday", "japanese": "火"},
+		{"english": "Wednesday", "japanese": "水"},
+		{"english": "Thursday", "japanese": "木"},
+		{"english": "Friday", "japanese": "金"},
+		{"english": "Saturday", "japanese": "土"},
+		{"english": "Sunday", "japanese": "日"},
 	}
 
 	// viewstate を取得
