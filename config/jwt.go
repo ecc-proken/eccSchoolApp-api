@@ -1,11 +1,12 @@
 package config
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"net/http"
-	"time"
+	"os"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
@@ -14,6 +15,12 @@ import (
 type JwtCustomClaims struct {
 	domain.User
 	jwt.StandardClaims
+}
+
+func MD5(text string) string {
+	algorithm := md5.New()
+	algorithm.Write([]byte(text + os.Getenv("SALT")))
+	return hex.EncodeToString(algorithm.Sum(nil))
 }
 
 // {id: string, pw: string}
@@ -36,17 +43,17 @@ func Login(c echo.Context) error {
 	if len(param.ID) != 7 {
 		return echo.NewHTTPError(http.StatusBadRequest, "id must be 7 digits")
 	}
-	
+
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
 		User: domain.User{
 			ID:       param.ID,
 			Password: param.Password,
-			UUID:     uuid.New().String(),
+			UUID:     MD5(param.ID),
 		},
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
+			ExpiresAt: 2147483647,
 		},
 	}
 
