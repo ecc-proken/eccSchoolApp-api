@@ -40,10 +40,6 @@ func Login(c echo.Context) error {
 	if param.ID == "" || param.Password == "" {
 		return echo.NewHTTPError(http.StatusBadRequest, "invalid id or password")
 	}
-	if len(param.ID) != 7 {
-		return echo.NewHTTPError(http.StatusBadRequest, "id must be 7 digits")
-	}
-
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
