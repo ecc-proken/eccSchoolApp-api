@@ -5,11 +5,13 @@ import (
 	"encoding/hex"
 	"net/http"
 	"os"
-
+	
+	"github.com/gocolly/colly"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
+
 )
 
 type JwtCustomClaims struct {
@@ -37,14 +39,29 @@ func Login(c echo.Context) error {
 	}
 
 	// Validation
-	if param.ID == "" || param.Password == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, "invalid id or password")
-	}
-	if len(param.ID) != 7 {
-		return echo.NewHTTPError(http.StatusBadRequest, "id must be 7 digits")
-	}
+	// if param.ID == "" || param.Password == "" {
+	// 	return echo.NewHTTPError(http.StatusBadRequest, "invalid id or password")
+	// }
+	// if len(param.ID) != 7 {
+	// 	return echo.NewHTTPError(http.StatusBadRequest, "id must be 7 digits")
+	// }
 
 	// Authentication
+	var title string
+	collection := ECCLogin(&domain.User{
+		ID:       param.ID,
+		Password: param.Password,
+	})
+	collection.OnHTML(".home_back", func(e *colly.HTMLElement) {
+		title = e.Text
+	})
+	// ログインページ
+	collection.Visit(os.Getenv("APP_DOMAIN") + "/app/login.php")
+
+	// titleに値が入っていなかったらログイン失敗
+	if title == "" {
+		return echo.NewHTTPError(http.StatusUnauthorized, "unauthorized error")
+	}
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
