@@ -86,6 +86,7 @@ func Login(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, echo.Map{
 		"token": t,
+		"uuid":  MD5(param.ID),
 	})
 }
 
