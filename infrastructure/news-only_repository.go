@@ -59,7 +59,7 @@ func (r *NewsOnlyRepository) Get(id string, user *domain.User) (*domain.NewsOnly
 		})
 	})
 
-	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS") + os.Getenv("APP_NEWS_ONLY_FRONT") + id + os.Getenv("APP_NEWS_ONLY_BACK"))
+	c.Visit(os.Getenv("APP_DOMAIN") + "/app/news/?c=news_view&pk=" + id + "&flg_top=1")
 
 	// 返す値から newsOnly を作成
 	newsOnly := &domain.NewsOnly{

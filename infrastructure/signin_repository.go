@@ -29,7 +29,7 @@ func (r *SigninRepository) Get(user *domain.User) (*domain.Signin, error) {
 	})
 
 	// ログインページ
-	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_LOGIN"))
+	c.Visit(os.Getenv("APP_DOMAIN") + "/app/login.php")
 
 	// titleに値が入っていなかったらログイン失敗
 	if title == "" {

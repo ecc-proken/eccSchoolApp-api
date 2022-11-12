@@ -53,7 +53,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 		})
 	})
 
-	c.Visit(os.Getenv("FALCON") + "/eccmo/(S(" + token + "))/MO0500/MO0500_01.aspx?mode=1")
+	c.Visit(os.Getenv("FALCON_DOMAIN") + "/eccmo/(S(" + token + "))/MO0500/MO0500_01.aspx?mode=1")
 
 	// tmp 空白削除
 	for i := 0; i < len(tmp); i++ {
@@ -92,7 +92,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 			flag = true
 		})
 
-		err := c.Post(os.Getenv("FALCON")+"/eccmo/(S("+token+"))/MO0500/"+action,
+		err := c.Post(os.Getenv("FALCON_DOMAIN")+"/eccmo/(S("+token+"))/MO0500/"+action,
 			map[string]string{
 				"__VIEWSTATE":     viewstate,
 				"__EVENTTARGET":   "lstSyussekiRitsu",

@@ -54,7 +54,7 @@ func (r *TimetableRepository) Get(week int, user *domain.User) (*domain.Timetabl
 		action = e.Attr("action")
 	})
 
-	c.Visit(os.Getenv("FALCON") + "/eccmo/(S(" + token + "))/MO0400/MO0400_01.aspx")
+	c.Visit(os.Getenv("FALCON_DOMAIN") + "/eccmo/(S(" + token + "))/MO0400/MO0400_01.aspx")
 
 	c.OnHTML("form", func(e *colly.HTMLElement) {
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
@@ -65,7 +65,7 @@ func (r *TimetableRepository) Get(week int, user *domain.User) (*domain.Timetabl
 		})
 	})
 
-	c.Post(os.Getenv("FALCON")+"/eccmo/(S("+token+"))/MO0400/"+action,
+	c.Post(os.Getenv("FALCON_DOMAIN")+"/eccmo/(S("+token+"))/MO0400/"+action,
 		map[string]string{
 			"__VIEWSTATE":     viewstate,
 			"__EVENTTARGET":   "lnk" + weeks[(week - 1)]["english"],
@@ -85,7 +85,7 @@ func (r *TimetableRepository) Get(week int, user *domain.User) (*domain.Timetabl
 			})
 		}
 
-		c.Visit(os.Getenv("FALCON") + strings.ReplaceAll(link, " ", ""))
+		c.Visit(os.Getenv("FALCON_DOMAIN") + strings.ReplaceAll(link, " ", ""))
 	}
 
 	timetable := domain.Timetable{}

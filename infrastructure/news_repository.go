@@ -47,12 +47,12 @@ func (r *NewsRepository) Get(user *domain.User) ([]*domain.News, error) {
 		})
 		// link
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
-			link = append(link, os.Getenv("APP_DOMAIN")+os.Getenv("APP_NEWS")+e.Attr("href")[2:])
+			link = append(link, os.Getenv("APP_DOMAIN")+"/app/news/"+e.Attr("href")[2:])
 		})
 	})
 
 	// ニュースのリンク指定
-	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_NEWS") + os.Getenv("APP_NEWS_LIST"))
+	c.Visit(os.Getenv("APP_DOMAIN") + "/app/news/?c=news")
 
 	// 返す値から news を作成
 	news := []*domain.News{}

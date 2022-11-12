@@ -14,7 +14,7 @@ func ECCLogin(user *domain.User) *colly.Collector {
 	c := colly.NewCollector()
 
 	// ログイン処理
-	err := c.Post(os.Getenv("APP_DOMAIN")+os.Getenv("APP_LOGIN"),
+	err := c.Post(os.Getenv("APP_DOMAIN")+"/app/login.php",
 		map[string]string{
 			"c":        "login_2",
 			"flg_auto": "1",
@@ -31,7 +31,7 @@ func ECCLogin(user *domain.User) *colly.Collector {
 
 func FalconLogin(user *domain.User) (*colly.Collector, string) {
 	// リダイレクト先のtokenを取得
-	target_url := os.Getenv("FALCON") + "/eccmo/mo0100/mo0100_01.aspx"
+	target_url := os.Getenv("FALCON_DOMAIN") + "/eccmo/mo0100/mo0100_01.aspx"
 	req, _ := http.NewRequest("HEAD", target_url, nil)
 	resp, _ := http.DefaultTransport.RoundTrip(req)
 	defer resp.Body.Close()
@@ -58,10 +58,10 @@ func FalconLogin(user *domain.User) (*colly.Collector, string) {
 		}
 	})
 
-	c.Visit(os.Getenv("FALCON") + "/eccmo/(S(" + token + "))/MO0100/MO0100_01.aspx")
+	c.Visit(os.Getenv("FALCON_DOMAIN") + "/eccmo/(S(" + token + "))/MO0100/MO0100_01.aspx")
 
 	// ログイン処理
-	err := c.Post(os.Getenv("FALCON")+"/eccmo/(S("+token+"))/MO0100/"+action,
+	err := c.Post(os.Getenv("FALCON_DOMAIN")+"/eccmo/(S("+token+"))/MO0100/"+action,
 		map[string]string{
 			"__VIEWSTATE":     viewstate,
 			"__EVENTTARGET":   "",

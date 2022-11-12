@@ -39,7 +39,7 @@ func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*doma
 				if strings.Index(e.Attr("href"), "app") == -1 {
 					link[i] = append(link[i],
 						os.Getenv("APP_DOMAIN")+
-							os.Getenv("APP_CALENDAR")+
+							"/app/calendar/"+
 							strings.Replace(e.Attr("href"), "./", "", 1),
 					)
 				}
@@ -47,7 +47,7 @@ func (r *CalendarRepository) Get(year, month string, user *domain.User) ([]*doma
 		})
 	})
 
-	c.Visit(os.Getenv("APP_DOMAIN") + os.Getenv("APP_CALENDAR") + os.Getenv("APP_CALENDAR_LIST") + "&cal_yy=" + year + "&cal_mm=" + month)
+	c.Visit(os.Getenv("APP_DOMAIN") + "/app/calendar/index.php?c=schedule&cal_yy=" + year + "&cal_mm=" + month)
 
 	// 返す値から calendar を作成
 	calendar := []*domain.Calendar{}

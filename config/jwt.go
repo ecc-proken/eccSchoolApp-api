@@ -44,10 +44,11 @@ func Login(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "id must be 7 digits")
 	}
 
+	// Authentication
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
-		User: domain.User{
+		User: domain.User {
 			ID:       param.ID,
 			Password: param.Password,
 			UUID:     MD5(param.ID),
