@@ -49,7 +49,7 @@ func main() {
 		AllowMethods: []string{echo.GET, echo.POST, echo.OPTIONS},
 	}))
 
-	// Routes
+	// Router
 	handler.InitRouting(e,
 		newsHandler,
 		signinHandler,
