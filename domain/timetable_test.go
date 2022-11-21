@@ -8,14 +8,14 @@ import (
 
 func TestTimetable(t *testing.T) {
 	timetable := Timetable{
-		Date:     "2022/11/21",
-		Weekday:  "月",
+		Date:    "2022/11/21",
+		Weekday: "月",
 		Timetable: []TimetableDetail{
 			{
-				Period: "1限",
+				Period:       "1限",
 				SubjectTitle: "セキュリティ演習_B",
-				Classroom: "1405",
-				Teacher: "教員の名前",
+				Classroom:    "1405",
+				Teacher:      "教員の名前",
 			},
 		},
 	}

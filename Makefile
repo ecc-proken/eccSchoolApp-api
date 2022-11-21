@@ -25,7 +25,10 @@ app:
 test:
 	$(dc) exec app go test -v ./...
 
-.PHONY:	up down restart reup rm logs app test
+format:
+	$(dc) exec app go fmt ./...
+
+.PHONY:	up down restart reup rm logs app test format
 
 #------------------------------------------------------------------------------
 

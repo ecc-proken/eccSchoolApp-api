@@ -5,13 +5,12 @@ import (
 	"encoding/hex"
 	"net/http"
 	"os"
-	
+
 	"github.com/gocolly/colly"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/yumekiti/eccSchoolApp-api/domain"
-
 )
 
 type JwtCustomClaims struct {
@@ -65,7 +64,7 @@ func Login(c echo.Context) error {
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
-		User: domain.User {
+		User: domain.User{
 			ID:       param.ID,
 			Password: param.Password,
 			UUID:     MD5(param.ID),

@@ -16,7 +16,7 @@ func TestCalendar(t *testing.T) {
 			},
 		},
 	}
-	
+
 	assert.Equal(t, "9", calendar.Day)
 	assert.Equal(t, "情報処理技術者試験(IPA)", calendar.Plans[0].Title)
 	assert.Equal(t, "https://example.com", calendar.Plans[0].Link)

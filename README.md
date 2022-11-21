@@ -120,3 +120,9 @@ make test
 docker run -v "$PWD":/src -w /src vektra/mockery --all --keeptree
 sudo chown -R $USER:$USER ./mocks
 ```
+
+## フォーマット
+  
+```sh
+make fmt
+```
