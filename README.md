@@ -107,3 +107,16 @@ sub vcl_deliver {
   }
 }
 ```
+
+## テスト
+
+```sh
+make test
+```
+
+### モック
+  
+```sh
+docker run -v "$PWD":/src -w /src vektra/mockery --all --keeptree
+sudo chown -R $USER:$USER ./mocks
+```
