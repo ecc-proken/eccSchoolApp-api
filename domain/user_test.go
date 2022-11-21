@@ -14,6 +14,6 @@ func TestUser(t *testing.T) {
 	}
 	
 	assert.Equal(t, "2200000", user.ID)
-	assert.Equal(t, "hoge", user.Password)
+	assert.Equal(t, "password", user.Password)
 	assert.Equal(t, "00000000-0000-0000-0000-000000000000", user.UUID)
 }
