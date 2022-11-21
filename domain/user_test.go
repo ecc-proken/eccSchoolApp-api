@@ -9,7 +9,7 @@ import (
 func TestUser(t *testing.T) {
 	user := User{
 		ID:       "2200000",
-		Password: "hoge",
+		Password: "password",
 		UUID:		 "00000000-0000-0000-0000-000000000000",
 	}
 	

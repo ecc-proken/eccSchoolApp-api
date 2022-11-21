@@ -39,7 +39,7 @@ https://echo.labstack.com/
 
 ```shell
 # login
-curl -X POST -H "Content-Type: application/json" -d '{"id":"2200000", "pw":"hoge"}' https://eccschoolapp-api.yumekiti.net/signin
+curl -X POST -H "Content-Type: application/json" -d '{"id":"2200000", "pw":"password"}' https://eccschoolapp-api.yumekiti.net/signin
 
 # uuid
 curl https://eccschoolapp-api.yumekiti.net/uuid -H "Authorization: Bearer <token>"
