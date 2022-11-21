@@ -59,7 +59,8 @@ func (r *TimetableRepository) Get(week int, user *domain.User) (*domain.Timetabl
 	c.OnHTML("form", func(e *colly.HTMLElement) {
 		e.ForEach("a", func(_ int, e *colly.HTMLElement) {
 			if e.Text != "メインメニュー" && e.Text != "戻る" {
-				subjectTitle = append(subjectTitle, e.Text)
+				title := strings.Split(e.Text, " ")
+				subjectTitle = append(subjectTitle, title[len(title)-1])
 				links = append(links, e.Attr("href"))
 			}
 		})
