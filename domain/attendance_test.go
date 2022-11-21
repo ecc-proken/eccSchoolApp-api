@@ -8,14 +8,14 @@ import (
 
 func TestAttendance(t *testing.T) {
 	attendance := Attendance{
-		Title:    "コンセプトワーク演習",
+		Title:    "AIシステム開発演習Ⅰ",
 		Rate:     "100％",
-		Absence:  "０",
-		Lateness: "０",
+		Absence:  "0",
+		Lateness: "0",
 	}
 
-	assert.Equal(t, "コンセプトワーク演習", attendance.Title)
+	assert.Equal(t, "AIシステム開発演習Ⅰ", attendance.Title)
 	assert.Equal(t, "100％", attendance.Rate)
-	assert.Equal(t, "０", attendance.Absence)
-	assert.Equal(t, "０", attendance.Lateness)
+	assert.Equal(t, "0", attendance.Absence)
+	assert.Equal(t, "0", attendance.Lateness)
 }
