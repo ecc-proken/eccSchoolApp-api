@@ -26,6 +26,7 @@ type requestAttendance struct{}
 type responseAttendance struct {
 	Title    string `json:"title"`
 	Rate     string `json:"rate"`
+	Count    string `json:"count"`
 	Absence  string `json:"absence"`
 	Lateness string `json:"lateness"`
 }
@@ -53,6 +54,7 @@ func (h *attendanceHandler) Get() echo.HandlerFunc {
 			res = append(res, responseAttendance{
 				Title:    attendance.Title,
 				Rate:     attendance.Rate,
+				Count:    attendance.Count,
 				Absence:  attendance.Absence,
 				Lateness: attendance.Lateness,
 			})

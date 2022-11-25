@@ -24,6 +24,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 	// 返す値の初期化
 	var title []string
 	var rate []string
+	var count []string
 	var absence []string
 	var lateness []string
 
@@ -82,9 +83,11 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 
 			// absence lateness
 			if len(v) == 2 {
-				absence = append(absence, strings.Split(e.Text, "欠　席:")[1][:1])
-				lateness = append(lateness, strings.Split(e.Text, "遅　刻:")[1][:1])
+				count = append(count, strings.Split(strings.Split(e.Text, "出　席:")[1], "\n")[0])
+				absence = append(absence, strings.Split(strings.Split(e.Text, "欠　席:")[1], "\n")[0])
+				lateness = append(lateness, strings.Split(strings.Split(e.Text, "遅　刻:")[1], "\n")[0])
 			} else {
+				count = append(count, "0")
 				absence = append(absence, "0")
 				lateness = append(lateness, "0")
 			}
@@ -109,6 +112,7 @@ func (r *AttendanceRepository) Get(user *domain.User) ([]*domain.Attendance, err
 		attendance = append(attendance, &domain.Attendance{
 			Title:    v,
 			Rate:     rate[i],
+			Count:    count[i],
 			Absence:  absence[i],
 			Lateness: lateness[i],
 		})
