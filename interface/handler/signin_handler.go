@@ -11,6 +11,7 @@ import (
 
 type SigninHandler interface {
 	Get() echo.HandlerFunc
+	Mock() echo.HandlerFunc
 }
 
 type signinHandler struct {
@@ -47,6 +48,17 @@ func (h *signinHandler) Get() echo.HandlerFunc {
 		res := responseSignin{
 			Status:  getSignin.Status,
 			Message: getSignin.Message,
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (h *signinHandler) Mock() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		res := responseSignin{
+			Status:  200,
+			Message: "いらっしゃいませご主人様^~",
 		}
 
 		return c.JSON(http.StatusOK, res)

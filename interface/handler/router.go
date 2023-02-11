@@ -45,6 +45,7 @@ func InitRouting(
 	// 以下のルーティングはmock用
 	m := e.Group("/mock")
 	m.GET("/news", newsHandler.Mock())
+	m.GET("/signin", signinHandler.Mock())
 	m.GET("/attendance", attendanceHandler.Mock())
 	m.GET("/timetable/:week", timetableHandler.Mock())
 }
