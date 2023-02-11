@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -11,6 +13,7 @@ import (
 
 type NewsOnlyHandler interface {
 	Get() echo.HandlerFunc
+	Mock() echo.HandlerFunc
 }
 
 type newsOnlyHandler struct {
@@ -59,6 +62,22 @@ func (h *newsOnlyHandler) Get() echo.HandlerFunc {
 				Tag:        getNewsOnly.Tag,
 				Attachment: getNewsOnly.Attachment,
 			},
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (h *newsOnlyHandler) Mock() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		raw, err := ioutil.ReadFile("mocks/data/news-only.json")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		var res []responseNewsOnly
+		if err := json.Unmarshal(raw, &res); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		return c.JSON(http.StatusOK, res)

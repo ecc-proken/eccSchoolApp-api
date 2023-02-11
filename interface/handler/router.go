@@ -46,6 +46,7 @@ func InitRouting(
 	m := e.Group("/mock")
 	m.GET("/news", newsHandler.Mock())
 	m.GET("/signin", signinHandler.Mock())
+	m.GET("/news/:id", newsOnlyHandler.Mock())
 	m.GET("/attendance", attendanceHandler.Mock())
 	m.GET("/timetable/:week", timetableHandler.Mock())
 }
