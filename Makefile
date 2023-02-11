@@ -52,3 +52,16 @@ run:
 
 clean:
 	rm -rf build
+
+#------------------------------------------------------------------------------
+
+precommit:
+	echo "#!/bin/sh\n\
+	files=\$$(git diff --cached --name-only | grep -E '\\.(go)$$')\n\
+	\n\
+	if [ -n \"\$$files\" ]; then\n\
+		echo \"Formatting Go files...\"\n\
+		gofmt -s -w \$$files\n\
+		git add \$$files\n\
+	fi" > .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
