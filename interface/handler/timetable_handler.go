@@ -3,6 +3,8 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -12,6 +14,7 @@ import (
 
 type TimetableHandler interface {
 	Get() echo.HandlerFunc
+	Mock() echo.HandlerFunc
 }
 
 type timetableHandler struct {
@@ -70,6 +73,24 @@ func (h *timetableHandler) Get() echo.HandlerFunc {
 				Classroom:    v.Classroom,
 				Teacher:      v.Teacher,
 			})
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (h *timetableHandler) Mock() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		week := c.Param("week")
+		
+		raw, err := ioutil.ReadFile("mocks/data/timetable/timetable-" + week + ".json")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		var res responseTimetable
+		if err := json.Unmarshal(raw, &res); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		return c.JSON(http.StatusOK, res)
