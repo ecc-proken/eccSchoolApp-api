@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -11,6 +13,7 @@ import (
 
 type AttendanceHandler interface {
 	Get() echo.HandlerFunc
+	Mock() echo.HandlerFunc
 }
 
 type attendanceHandler struct {
@@ -58,6 +61,22 @@ func (h *attendanceHandler) Get() echo.HandlerFunc {
 				Absence:  attendance.Absence,
 				Lateness: attendance.Lateness,
 			})
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (h *attendanceHandler) Mock() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		raw, err := ioutil.ReadFile("mocks/data/attendance.json")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		var res []responseAttendance
+		if err := json.Unmarshal(raw, &res); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		return c.JSON(http.StatusOK, res)
