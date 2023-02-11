@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"os"
+	"encoding/json"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -56,9 +58,14 @@ func (h *signinHandler) Get() echo.HandlerFunc {
 
 func (h *signinHandler) Mock() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		res := responseSignin{
-			Status:  200,
-			Message: "いらっしゃいませご主人様^~",
+		raw, err := os.ReadFile("mocks/data/signin.json")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		var res responseSignin
+		if err := json.Unmarshal(raw, &res); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		return c.JSON(http.StatusOK, res)

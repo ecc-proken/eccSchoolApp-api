@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 	"encoding/json"
-	"io/ioutil"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -70,7 +70,7 @@ func (h *newsOnlyHandler) Get() echo.HandlerFunc {
 
 func (h *newsOnlyHandler) Mock() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		raw, err := ioutil.ReadFile("mocks/data/news-only.json")
+		raw, err := os.ReadFile("mocks/data/news-only.json")
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
