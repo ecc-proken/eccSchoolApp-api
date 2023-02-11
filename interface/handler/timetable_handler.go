@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"net/http"
-	"strconv"
 	"encoding/json"
+	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -82,7 +82,7 @@ func (h *timetableHandler) Get() echo.HandlerFunc {
 func (h *timetableHandler) Mock() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		week := c.Param("week")
-		
+
 		raw, err := os.ReadFile("mocks/data/timetable/timetable-" + week + ".json")
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())

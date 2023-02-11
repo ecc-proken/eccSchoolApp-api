@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"encoding/json"
 	"net/http"
 	"os"
-	"encoding/json"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
