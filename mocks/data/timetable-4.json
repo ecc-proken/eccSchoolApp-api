@@ -1,0 +1,18 @@
+{
+  "date": "2022/11/10",
+  "weekday": "木",
+  "timetable": [
+    {
+      "period": "3限",
+      "subjectTitle": "卒業制作演習（Web）",
+      "classroom": "2404",
+      "teacher": "武田　利佳"
+    },
+    {
+      "period": "4限",
+      "subjectTitle": "卒業制作演習（Web）",
+      "classroom": "2404",
+      "teacher": "坂倉　正樹"
+    }
+  ]
+}

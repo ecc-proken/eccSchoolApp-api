@@ -1,0 +1,86 @@
+[
+  {
+    "title": "コンセプトワーク演習Ⅴ",
+    "rate": "86％",
+    "count": "13",
+    "absence": "2",
+    "lateness": "0"
+  },
+  {
+    "title": "コンセプトワーク演習Ⅵ",
+    "rate": "93％",
+    "count": "9",
+    "absence": "2",
+    "lateness": "0"
+  },
+  {
+    "title": "WordPress演習",
+    "rate": "86％",
+    "count": "13",
+    "absence": "2",
+    "lateness": "0"
+  },
+  {
+    "title": "WoT演習",
+    "rate": "88％",
+    "count": "46",
+    "absence": "3",
+    "lateness": "1"
+  },
+  {
+    "title": "アプリ開発演習Ⅱ",
+    "rate": "83％",
+    "count": "25",
+    "absence": "5",
+    "lateness": "0"
+  },
+  {
+    "title": "チームプロジェクト演習Ⅳ",
+    "rate": "96％",
+    "count": "17",
+    "absence": "1",
+    "lateness": "1"
+  },
+  {
+    "title": "Webゼミ演習Ⅰ",
+    "rate": "100％",
+    "count": "30",
+    "absence": "0",
+    "lateness": "0"
+  },
+  {
+    "title": "Webゼミ演習Ⅱ",
+    "rate": "76％",
+    "count": "14",
+    "absence": "7",
+    "lateness": "1"
+  },
+  {
+    "title": "メディアプロジェクト演習Ⅰ",
+    "rate": "83％",
+    "count": "49",
+    "absence": "10",
+    "lateness": "1"
+  },
+  {
+    "title": "メディアプロジェクト演習Ⅱ",
+    "rate": "100％",
+    "count": "13",
+    "absence": "0",
+    "lateness": "0"
+  },
+  {
+    "title": "卒業制作演習（Web）",
+    "rate": "86％",
+    "count": "32",
+    "absence": "10",
+    "lateness": "0"
+  },
+  {
+    "title": "就職対策Ⅱ",
+    "rate": "100％",
+    "count": "15",
+    "absence": "0",
+    "lateness": "0"
+  }
+]

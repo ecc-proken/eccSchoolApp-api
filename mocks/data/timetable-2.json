@@ -1,0 +1,18 @@
+{
+  "date": "2022/11/08",
+  "weekday": "火",
+  "timetable": [
+    {
+      "period": "3限",
+      "subjectTitle": "卒業制作演習（Web）",
+      "classroom": "2404",
+      "teacher": "桃井　景子"
+    },
+    {
+      "period": "4限",
+      "subjectTitle": "卒業制作演習（Web）",
+      "classroom": "2404",
+      "teacher": "桃井　景子"
+    }
+  ]
+}

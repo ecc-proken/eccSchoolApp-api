@@ -41,4 +41,8 @@ func InitRouting(
 	r.GET(":uuid/attendance", attendanceHandler.Get())
 	// timetable
 	r.GET(":uuid/timetable/:week", timetableHandler.Get())
+
+	// 以下のルーティングはmock用
+	m := e.Group("/mock")
+	m.GET("/news", newsHandler.Mock())
 }
