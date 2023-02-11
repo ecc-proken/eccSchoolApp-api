@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"encoding/json"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/yumekiti/eccSchoolApp-api/config"
@@ -11,6 +13,7 @@ import (
 
 type CalendarHandler interface {
 	Get() echo.HandlerFunc
+	Mock() echo.HandlerFunc
 }
 
 type calendarHandler struct {
@@ -71,6 +74,22 @@ func (h *calendarHandler) Get() echo.HandlerFunc {
 					Link:  plan.Link,
 				})
 			}
+		}
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (h *calendarHandler) Mock() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		raw, err := os.ReadFile("mocks/data/calendar.json")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		var res []responseCalendar
+		if err := json.Unmarshal(raw, &res); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		return c.JSON(http.StatusOK, res)
