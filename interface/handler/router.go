@@ -43,11 +43,11 @@ func InitRouting(
 	r.GET(":uuid/timetable/:week", timetableHandler.Get())
 
 	// 以下のルーティングはmock用
-	m := e.Group("/mock")
-	m.GET(":uuid/news", newsHandler.Mock())
-	m.GET(":uuid/signin", signinHandler.Mock())
-	m.GET(":uuid/news/:id", newsOnlyHandler.Mock())
-	m.GET(":uuid/calendar/:year/:month", calendarHandler.Mock())
-	m.GET(":uuid/attendance", attendanceHandler.Mock())
-	m.GET(":uuid/timetable/:week", timetableHandler.Mock())
+	m := e.Group("/mock/:uuid")
+	m.GET("/news", newsHandler.Mock())
+	m.GET("/signin", signinHandler.Mock())
+	m.GET("/news/:id", newsOnlyHandler.Mock())
+	m.GET("/calendar/:year/:month", calendarHandler.Mock())
+	m.GET("/attendance", attendanceHandler.Mock())
+	m.GET("/timetable/:week", timetableHandler.Mock())
 }
