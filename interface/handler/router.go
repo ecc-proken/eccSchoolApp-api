@@ -43,7 +43,7 @@ func InitRouting(
 	r.GET(":uuid/timetable/:week", timetableHandler.Get())
 
 	// 以下のルーティングはmock用
-	e.GET("/mock/signin", func(c echo.Context) error {
+	e.POST("/mock/signin", func(c echo.Context) error {
 		return config.Mock(c)
 	})
 	m := e.Group("/mock/:uuid")
