@@ -116,3 +116,10 @@ func GetUser(c echo.Context) *domain.User {
 	// 	UUID:     os.Getenv("TEST_UUID"),
 	// }
 }
+
+func Mock (c echo.Context) error {
+	return c.JSON(http.StatusOK, echo.Map{
+		"token": "token",
+		"uuid":  "uuid",
+	})
+}
