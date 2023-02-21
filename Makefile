@@ -28,8 +28,6 @@ test:
 format:
 	$(dc) exec app go fmt ./...
 
-.PHONY:	up down restart reup rm logs app test format
-
 #------------------------------------------------------------------------------
 
 .DEFAULT_GOAL=build
@@ -37,7 +35,6 @@ format:
 PROJECT?=$(shell basename $(shell pwd))
 
 GO_BUILD_DIR=build
-.PHONY: build
 
 build:
 	make clean
@@ -65,3 +62,5 @@ precommit:
 		git add \$$files\n\
 	fi" > .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
+
+.PHONY: precommit clean build run test format app logs rm reup restart down up
