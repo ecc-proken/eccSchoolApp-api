@@ -1,30 +1,5 @@
 {
   "date": "2022/11/07",
   "weekday": "月",
-  "timetable": [
-    {
-      "period": "1限",
-      "subjectTitle": "メディアプロジェクト演習Ⅱ",
-      "classroom": "2404",
-      "teacher": "瀧本　竜嗣"
-    },
-    {
-      "period": "2限",
-      "subjectTitle": "メディアプロジェクト演習Ⅱ",
-      "classroom": "2404",
-      "teacher": "瀧本　竜嗣"
-    },
-    {
-      "period": "3限",
-      "subjectTitle": "卒業制作演習（Web）",
-      "classroom": "2404",
-      "teacher": "田中　明夫"
-    },
-    {
-      "period": "4限",
-      "subjectTitle": "卒業制作演習（Web）",
-      "classroom": "2404",
-      "teacher": "田中　明夫"
-    }
-  ]
+  "timetable": []
 }
